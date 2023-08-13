@@ -45,6 +45,40 @@ class movieServices {
             console.log(err,"<<<<");
         }
     }
+    static destroy = async (params) =>{
+        try{
+            const{id} = params;
+
+            const movie = await movieRepository.destroy(id);
+
+            return movie;
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static update = async(pathParams,filePhoto,params) =>{
+        try{
+
+            const {id} = pathParams;
+            const{title,genres,year} = params;
+            let payload = {
+                title,
+                genres,
+                year
+            }
+
+            if(filePhoto){
+                let linkPhoto = `http://localhost:3000/${filePhoto.filename}`
+                payload.photo = linkPhoto;
+
+            }
+            const movie = await movieRepository.update(id,payload,)
+            return movie;
+
+        }catch(err){
+            console.log(err);
+        }
+    }
 
 }
 

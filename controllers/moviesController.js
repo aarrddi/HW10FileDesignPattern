@@ -38,11 +38,28 @@ class movieController{
         }
 
     }
-    static update = async () =>{
+    static update = async (req,res,next) =>{
+        try{
+
+            const movie = await movieServices.update(req.params,req.file,req.body);
+            res.status(200).json({message : "Update Movie Success"})
+        }catch(err){
+            console.log(err);
+        }
 
     }
-    static destroy = async () =>{
+    static destroy = async (req,res,next) =>{
+        try{
+            const movie = await movieServices.destroy(req.params);
+            res.status(200).json({message : "Movie Deleted"});
 
+            if(!movie){
+                throw(err)
+            }
+
+        }catch(err){
+            next(err);
+        }
     }
 
 

@@ -11,8 +11,6 @@ class movieRepository{
             next(err);
         }
     }
-
-
     static findOne = async(id)=>{
        
         try{
@@ -34,6 +32,33 @@ class movieRepository{
 
             const movie = await Movie.create(payload);
             return movie
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static destroy = async (id) => {
+        try{
+
+            const movie = await Movie.destroy({
+                where: {
+                    id
+                }
+            })
+            return movie;
+        }catch(err){
+            console.log(err);
+        }
+    }
+    static update = async (id,payload) =>{
+        try{
+
+            const movie = await Movie.update(payload,{
+                where: {
+                    id
+                }
+            })
+            return movie
+
         }catch(err){
             console.log(err);
         }
